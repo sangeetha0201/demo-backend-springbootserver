@@ -7,8 +7,7 @@ pipeline {
     }
     agent any
     stages { 
-        stages {
-            stage('SonarQube analysis') {
+        stage('SonarQube analysis') {
                 agent { label "master"}
                 steps {
                     withSonarQubeEnv('local-sonar') {
@@ -17,7 +16,7 @@ pipeline {
                     }
                 }
             }
-            stage("Quality Gate") {
+         stage("Quality Gate") {
                 agent { label "master"}
                 steps {
                     sleep(60)
@@ -43,7 +42,6 @@ pipeline {
                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
               }
             }
-        
         }
         stage('Deploy push') {
             agent { label "docker-slave"}
@@ -77,5 +75,4 @@ pipeline {
         )
             }
         }  
-	}
-    }
+     }
