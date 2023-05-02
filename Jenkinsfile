@@ -60,7 +60,7 @@ pipeline {
             agent { label "docker-slave"}
             steps{
                 sh 'whoami'
-                sh 'ansible-playbook demo-backend-deploy.yml --extra-vars "job_name=$JOB_NAME" --extra-vars "build_no=$BUILD_NUMBER" --extra-vars "port_no=8080"'
+                sh 'ansible-playbook /home/jenkins/demo-backend-deploy.yml --extra-vars "job_name=$JOB_NAME" --extra-vars "build_no=$BUILD_NUMBER" --extra-vars "port_no=8080"'
                 
             }
         }
