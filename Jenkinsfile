@@ -13,6 +13,23 @@ pipeline {
                 stash includes: 'target/*.jar', name: 'targetfiles'
             }
         }
+        stage ('Upload') {
+            agent { label "master"}
+            steps {
+            rtUpload (
+			serverId: 'jfrog-creds',
+			spec: '''{
+				"files": [
+					{
+					"pattern": "**/*.jar",
+					"target": "demo-backend-springbootserver/"
+					}
+				]
+			}''',
+
+        )
+            }
+        }  
         stage('Building Docker image') {
             agent { label "docker-slave"}
             steps{
@@ -39,22 +56,5 @@ pipeline {
               sh "docker rmi $registry:$BUILD_NUMBER"
             }
           }
-        stage ('Upload') {
-            agent { label "master"}
-            steps {
-            rtUpload (
-			serverId: 'jfrog-creds',
-			spec: '''{
-				"files": [
-					{
-					"pattern": "**/*.jar",
-					"target": "demo-backend-springbootserver/"
-					}
-				]
-			}''',
-
-        )
-            }
-        }  
         }
    }
