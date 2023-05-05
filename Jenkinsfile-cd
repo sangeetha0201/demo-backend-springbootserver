@@ -1,0 +1,13 @@
+pipeline {
+    agent { label "docker-slave"}
+    stages{
+	    stage('Deploy to Server'){
+            
+            steps{
+                sh 'whoami'
+                sh 'ansible-playbook /home/jenkins/CD-demo-backend-deploy.yml --extra-vars "deploy_server=$DEPLOY_ENV" --extra-vars "app_name=$APP_NAME" --extra-vars "tag_no=$TAG_NO" --extra-vars "port_no=$PORT_NO"'
+                
+            }
+        }
+        }
+    }
