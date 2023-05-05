@@ -3,6 +3,7 @@ pipeline {
         registry = "sandeep4642/demo-backend-springbootserver"    
         registryCredential = 'dockerhub'
         dockerImage = ''
+	appname = "hello-spring-boot-war"
       }
     agent any
     stages {
@@ -60,7 +61,7 @@ pipeline {
             agent { label "docker-slave"}
             steps{
                 sh 'whoami'
-                sh 'ansible-playbook /home/jenkins/demo-backend-deploy.yml --extra-vars "job_name=$JOB_NAME" --extra-vars "build_no=$BUILD_NUMBER" --extra-vars "port_no=8080"'
+                sh 'ansible-playbook /home/jenkins/demo-backend-deploy.yml --extra-vars "deploy_server=dev" --extra-vars "job_name=$registry"  --extra-vars "container_name=$appname" --extra-vars "build_no=$BUILD_NUMBER" --extra-vars "port_no=8081"'
                 
             }
         }
