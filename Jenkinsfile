@@ -44,7 +44,7 @@ pipeline {
             
             steps{
                 sh 'whoami'
-                sh 'ansible-playbook /home/jenkins/demo-backend-deploy.yml --extra-vars "deploy_server=dev" --extra-vars "job_name=$registry"  --extra-vars "container_name=$appname" --extra-vars "build_no=$BUILD_NUMBER" --extra-vars "port_no=8081"'
+                sh 'ansible-playbook /home/jenkins/demo-backend-deploy.yml --extra-vars "deploy_server=dev" --extra-vars "job_name=$registry"  --extra-vars "container_name=$appname" --extra-vars "build_no=$BUILD_NUMBER" --extra-vars "port_no=8080"'
                 
             }
         }
